@@ -1,10 +1,10 @@
-(footprint "R_Axial_DIN{{verticalSpace}}{{horizontalSpace}}_L{{length}}mm_D{{diameter}}mm_P5.08mm_Horizontal"
+(footprint "R_Axial_DIN{{verticalSpace}}{{horizontalSpace}}_L{{length}}mm_D{{diameter}}mm_P{{pinPitch}}mm_Horizontal"
 	(version 20240108)
 	(generator "pcbnew")
 	(generator_version "8.0")
 	(layer "F.Cu")
-	(descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=5.08mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
-	(tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 5.08mm 0.167W length 3.6mm diameter 1.6mm")
+	(descr "Resistor, Axial_DIN{{verticalSpace}}{{horizontalSpace}} series, Axial, Horizontal, pin pitch={{pinPitch}}mm, {{powerRating}}W, length*diameter={{length}}*{{diameter}}mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
+	(tags "Resistor Axial_DIN{{verticalSpace}}{{horizontalSpace}} series Axial Horizontal pin pitch {{pinPitch}}mm {{powerRating}}W length {{length}}mm diameter {{diameter}}mm")
 	(property "Reference" "REF**"
 		(at 2.54 -1.92 0)
 		(layer "F.SilkS")
