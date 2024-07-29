@@ -1,0 +1,37 @@
+read csv file
+assign column headers from first line
+one row at a time:
+    parse and assign to varaibles
+        fields
+            verticalSpace - 2 digits, 1/10 inch
+            horizontalSpace - 2 digits, 1/10 inch
+            length
+            diameter
+            pinPitch - calculated in mmm
+            powerRating - in watts
+            refOffsetX = -.5(pinPitch)
+            refOffsetY = -(1/2 verticalSpace and then to the next tenth)
+            valueOffsetX = .5(pinPitch)
+            valueOffsetY = 1/2 verticalSpace and then to the next tenth
+            Datasheet
+            value
+            footprint
+            digikey part Number
+            manufacture part Number
+            diameter
+            
+            power rating
+            Price
+            Tolerance
+
+
+    from size, check to see if foot print exist
+    do all math (mostly for foot print)
+    if not then make foot print and save it
+    make part
+    repeat
+
+will need 
+    import cvs
+    from jinja2 import Environment, FileSystemLoader
+
