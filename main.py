@@ -45,6 +45,8 @@ for index, row in df.iterrows():
     mfrPart = df.loc[index, 'Mfr Part #']
     price = df.loc[index, 'Price']
 
+
+#--------------Resistor specific---------------------
     resistance = df.loc[index, 'Resistance']
     # turn the ohms into 
     resistance = resistance.replace("Ohms", om)
@@ -78,12 +80,16 @@ for index, row in df.iterrows():
         output = render_template('TH_ResistorTemplate.kicad_mod', data)
         newFilename = f"R_Axial_L{length}mm_D{diameter}mm_P{pinPitch}mm_Horizontal.kicad_mod"
         for existingFilename in os.listdir(footPrintPath):
-            if existingFilename != newFilename:
-                with open(newFilename, 'w') as file:
-                    file.write(output)
-            else:
+            if existingFilename == newFilename:
                 print("The footprint exist")
+                break       
+        else:
+            with open(newFilename, 'w') as file:
+                file.write(output)
+                j+=1
 
+#------------footprints are made---------------------------------
+            
         
 
 
