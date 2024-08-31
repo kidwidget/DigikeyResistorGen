@@ -11,7 +11,7 @@
         (uuid "")
         (effects
             (font
-                (size 1 1)
+                (size 0.84 0.84)
                 (thickness 0.15)
             )
         )
@@ -22,7 +22,7 @@
         (uuid "")
         (effects
             (font
-                (size 1 1)
+                (size 0.84 0.84)
                 (thickness 0.15)
             )
         )

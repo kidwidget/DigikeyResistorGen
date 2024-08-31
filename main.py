@@ -57,7 +57,7 @@ for index, row in df.iterrows():
     resistance = df.loc[index, 'Resistance']
     # turn the ohms into 
     resistance = resistance.replace("Ohms", om)
-    resistance = resistance.replace(" ", "_")
+    # resistance = resistance.replace(" ", "_")
     symbol = 'R_' + resistance 
     tolerance = df.loc[index, 'Tolerance']
     power = df.loc[index, 'Power (Watts)']
@@ -89,6 +89,7 @@ for index, row in df.iterrows():
         output = render_template('TH_ResistorTemplate.kicad_mod', footprintData)
         footprintFilename = f"R_Axial_L{length}mm_D{diameter}mm_P{pinPitch}mm_Horizontal.kicad_mod"
         pathToFootprint = args.foot + footprintFilename
+        pseudoPathToFootprint = 'DigikeyResistors:'+ f"R_Axial_L{length}mm_D{diameter}mm_P{pinPitch}mm_Horizontal"
         for existingFilename in os.listdir(args.foot):
             if existingFilename == footprintFilename:
                 print("The footprint exist")
@@ -104,7 +105,7 @@ for index, row in df.iterrows():
             'value': resistance,
             'tolerance': tolerance,
             'power': power,
-            'footprint': pathToFootprint,
+            'footprint': pseudoPathToFootprint,
             'datasheet': datasheetUrl,
             'dkPart': dkPart,
             'mfrPart': mfrPart,
