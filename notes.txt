@@ -18,7 +18,9 @@ one row at a time:
             footprint
             digikey part Number
             manufacture part Number
-            diameter
+            
+        
+            padSize = 1.4, given, this is the size I want them
             
             power rating
             Price
@@ -34,4 +36,6 @@ one row at a time:
 will need 
     import cvs
     from jinja2 import Environment, FileSystemLoader
+
+    Template finished, need to test.
 

@@ -25,6 +25,13 @@ symbolOutputPath = args.sym
 footPrintPath = args.foot
 
 padSize = 1.4
+preamble = '''(kicad_symbol_lib
+\t(version 20231120)
+\t(generator "kicad_symbol_editor")
+\t(generator_version "8.0")\n'''
+with open(args.sym, 'w') as file:
+    file.write(preamble)
+
 
 # Open the data file
 df = pd.read_csv(dataFilePath, delimiter = ',', quotechar = '"')
@@ -38,10 +45,10 @@ for index, row in df.iterrows():
     # check for multiple part numbers, take CT if available   
     dkPart = df.loc[index, 'DK Part #']
     if ',' in dkPart:
-        # there are multiple part numbers, take cut tape
-        if 'CT-ND' in dkPart:
-            dkPart = re.search('.*CT-ND', dkPart).group(0)
-    
+    # There are multiple part numbers, take the one with CT-ND at the end
+        match = re.findall(r'\b\w+CT-ND\b', dkPart)
+        if match:
+            dkPart = match[0]
     mfrPart = df.loc[index, 'Mfr Part #']
     price = df.loc[index, 'Price']
 
@@ -50,6 +57,8 @@ for index, row in df.iterrows():
     resistance = df.loc[index, 'Resistance']
     # turn the ohms into 
     resistance = resistance.replace("Ohms", om)
+    resistance = resistance.replace(" ", "_")
+    symbol = 'R_' + resistance 
     tolerance = df.loc[index, 'Tolerance']
     power = df.loc[index, 'Power (Watts)']
     # use the fraction syntax
@@ -66,7 +75,7 @@ for index, row in df.iterrows():
     # All needed info has been parsed
     pinPitch = grid_round_up(float(length))
     if dimensions != 'FUBAR':
-        data = {
+        footprintData = {
             'padSize': float(padSize),
             'length': float(length),
             'diameter': diameter,
@@ -77,19 +86,36 @@ for index, row in df.iterrows():
             'valueOffsetX': 0.5,
             'valueOffsetY': (float(diameter) / 2) + 0.5
         }
-        output = render_template('TH_ResistorTemplate.kicad_mod', data)
-        newFilename = f"R_Axial_L{length}mm_D{diameter}mm_P{pinPitch}mm_Horizontal.kicad_mod"
-        for existingFilename in os.listdir(footPrintPath):
-            if existingFilename == newFilename:
+        output = render_template('TH_ResistorTemplate.kicad_mod', footprintData)
+        footprintFilename = f"R_Axial_L{length}mm_D{diameter}mm_P{pinPitch}mm_Horizontal.kicad_mod"
+        pathToFootprint = args.foot + footprintFilename
+        for existingFilename in os.listdir(args.foot):
+            if existingFilename == footprintFilename:
                 print("The footprint exist")
                 break       
         else:
-            with open(newFilename, 'w') as file:
+            with open(pathToFootprint, 'w') as file:
                 file.write(output)
-                j+=1
+        
 
-#------------footprints are made---------------------------------
-            
+#------------footprints are made, make symbols---------------------------------
+        symbolData = {
+            'symbol': symbol,
+            'value': resistance,
+            'tolerance': tolerance,
+            'power': power,
+            'footprint': pathToFootprint,
+            'datasheet': datasheetUrl,
+            'dkPart': dkPart,
+            'mfrPart': mfrPart,
+            'price': price,
+        }   
+
+        output = render_template('ResistorSymbolTemplate.txt', symbolData)
+        with open(args.sym, 'a') as file:
+            file.write(output)
+with open(args.sym, 'a') as file:
+    file.write(')')        
         
 
 
