@@ -1,3 +1,9 @@
+# add arguments for device type
+# separate function for parsing by device type
+# refactor - put parsing function into separate file
+# refactor - put make footprint into separate file
+# refactor - put make symbol into separate filej
+
 import sys
 import argparse
 from jinja2 import Environment, FileSystemLoader

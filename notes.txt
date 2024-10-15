@@ -39,3 +39,38 @@ will need
 
     Template finished, need to test.
 
+Refactor with this in mind:
+/your_project_name
+├── main.py
+├── myFunctions.py
+├── parsers/
+│   ├── __init__.py
+│   ├── resistor_parser.py
+│   └── capacitor_parser.py
+├── footprint_generators/
+│   ├── __init__.py
+│   ├── resistor_footprint.py
+│   └── capacitor_footprint.py
+├── templates/
+│   └── (your Jinja2 templates)
+├── utils.py
+└── (other directories as needed)
+
+All components will have:
+    Manufacture part number
+    digikey part number
+    datasheet
+    dimensions
+    footprint
+    value
+    price
+    tolerance
+
+Resitors will also have
+    power rating
+
+Capacitors will also have
+    voltage rating
+    polarized or not
+    orientation
+
