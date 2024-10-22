@@ -90,7 +90,7 @@ class Resistor(Component):
                     'valueOffsetX': 0.5,
                     'valueOffsetY': (float(self.diameter) / 2) + 0.5
                 }
-                output = render_template('TH_ResistorTemplate.kicad_mod', data)
+                output = render_template('FootPrintTemplates/TH_ResistorTemplate.kicad_mod', data)
 
                 # write file
                 path += path + self.footprint
@@ -109,7 +109,7 @@ class Resistor(Component):
             'mfrPart': self.mfrPart,
             'price': self.price,
         }
-        output = render_template('ResistorSymbolTemplate.txt', data)
+        output = render_template('SymbolTemplates/ResistorSymbolTemplate.txt', data)
         saveFile(output, path, 'a')
                       
 
