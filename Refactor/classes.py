@@ -16,6 +16,8 @@ class Component:
         self.dimensions = None
         self.footprint = None
         self.price = None
+        self.symbol = None
+        
 
     def parse(self, row):
         self.mfPart = row.get('Mfr Part')
@@ -32,16 +34,14 @@ class Component:
 
 class Resistor(Component):
     """Resistor"""
-
     def __init__(self):
         super().__init__()
-        self.symbol = None
-        self.tolerance = None
         self.power = None
         self.diameter = None
         self.length = None
         self.pinPitch = None
         self.value = None
+        self.tolerance = None
 
     def parse(self, row):
         # get the raw data
@@ -115,8 +115,25 @@ class Resistor(Component):
 
 class Capacitor(Component):
     """Capacitor"""
-    def __init__(self, tolerance, voltage):
-        self.tolerance = tolerance
-        self.voltage = voltage
+    def __init__(self):
+        super().__init__()
+        self.symbol = None
+        self.tolerance = None
+        self.diameter = None
+        self.length = None
+        self.pinPitch = None
+        self.value = None
+    
+    def parse(self, row):
+        # get the raw data
+        super().parse(row)
+        self.value = row.get("Capacitance")
+        self.tolerance = row.get("Tolerance")
+        self.voltage = row.get("Voltage - Rated")
+        self.leadSpacing = row.get("Lead Spacing")
+        
+
+
+
 
         

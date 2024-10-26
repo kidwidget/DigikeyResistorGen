@@ -1,0 +1,17 @@
+Generic
+self.mfrPart = None
+self.dkPart = None
+self.datasheet = None
+self.dimensions = None
+self.footprint = None
+self.price = None
+
+Cap specific
+Capacitance
+Tolerance
+Voltage - Rated
+Size / Dimension
+Lead Spacing
+
+
+
